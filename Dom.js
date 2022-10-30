@@ -1,46 +1,32 @@
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
 
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete event
+itemList.addEventListener('click', removeItem);
 
-//Traversing the dom
-var itemList=document.querySelector('#items');
-//parentElement
-console.log(itemList.parentElement);
-itemList.parentElement.style.backgroundColor='f4f4f4';
-console.log(itemList.parentElement.parentElement);
-//lastelementchild
-console.log(itemList.lastElementChild);
-//lastchild
-console.log(itemList.lastChild);
-itemList.lastChild.textContent='hello';
-//createchild
-console.log(itemList.children);
-//lastelementchild
-console.log(itemList.lastElementChild);
-//firstChild
-console.log(itemList.firstChild);
-//nextSibling
-console.log(itemList.nextElementSibling);
-console.log(itemList.nextSibling);
-console.log(itemList.previousElementSibling);
-console.log(itemList.previousSibling);
-//createElement
-var newDiv=document.createElement('div');
-newDiv.className='hello';
-newDiv.id='hello9';
-newDiv.setAttribute('title','helloworld');
-//create textNode
-var newDivText=document.createTextNode('hello worldd');
-newDiv.appendChild(newDivText);
-var container=document.querySelector('header .container');
-var h1=document.querySelector('header h1');
-console.log(newDiv);
-container.insertBefore(newDiv, h1);
-/*
-parentNode=document.getElementById('items');
-helloWorldLiElement='<li>hello</li>';
-parentNode.appendFirstChild(helloWorldLiElement);
-parentNode.innerhtml='<li>hello</li>'+parentNode.innerhtml;
-*/
+// Add item
+function addItem(e){
+  e.preventDefault();
+  var newItem = document.getElementById('item').value;
+  var li = document.createElement('li');
+  li.className = 'list-group-item';
+  li.appendChild(document.createTextNode(newItem));
 
+  var deleteBtn = document.createElement('button');
 
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
-
+  deleteBtn.appendChild(document.createTextNode('X'));
+  li.appendChild(deleteBtn);
+  itemList.appendChild(li);
+}
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
